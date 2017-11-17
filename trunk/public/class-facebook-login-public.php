@@ -654,20 +654,7 @@ class Facebook_Login_Public {
 	 * Taken from https://github.com/Automattic/facebook-wordpress/blob/master/facebook.php
 	 */
 	private function set_locale() {
-		$transient_key = 'facebook_locale';
-		$locale = get_transient( $transient_key );
-		if ( $locale ) {
-			$this->locale = $locale;
-			return;
-		}
-		// sanitize the locale. e.g. en-US to en_US
-		// filter the result in case a site would like to override
-		$locale = apply_filters( 'fb_locale', self::sanitize_locale( get_locale() ) );
-		// validate our sanitized value and a possible filter override
-		if ( ! self::is_valid_locale( $locale ) )
-			$locale = self::DEFAULT_LOCALE;
-		set_transient( $transient_key, $locale, 60*60*24 );
-		$this->locale = $locale;
+		$this->locale = get_locale();
 	}
 
 	/**
